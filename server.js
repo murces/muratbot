@@ -28,7 +28,9 @@ app.post("/", async (req, res) => {
     const url = `https://fapi.binance.com/fapi/v1/order?${queryString}&signature=${signature}`;
 
     const response = await axios.post(url, {}, {
-      headers: { "X-MBX-APIKEY": apiKey },
+      headers: {
+        "X-MBX-APIKEY": apiKey,
+      },
     });
 
     res.status(200).json({ success: true, binanceResponse: response.data });
@@ -39,4 +41,4 @@ app.post("/", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Sunucu çalışıyor - Port: ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Sunucu çalışıyor → Port: ${PORT}`));
