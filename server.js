@@ -17,8 +17,11 @@ app.post("/", async (req, res) => {
     const timestamp = Date.now();
     const recvWindow = 5000;
 
-    const query = `symbol=${symbol}&side=${side}&type=MARKET&quantity=${size}&recvWindow=${recvWindow}&timestamp=${timestamp}`;
-    const signature = crypto.createHmac("sha256", apiSecret).update(query).digest("hex");
+  const queryString = `symbol=${symbol}&side=${side}&type=MARKET&quantity=${quantity}&timestamp=${timestamp}`;
+  const signature = crypto
+  .createHmac('sha256', process.env.BINANCE_API_SECRET)
+  .update(queryString)
+  .digest('hex');
     const url = `https://fapi.binance.com/fapi/v1/order?${query}&signature=${signature}`;
 
     const response = await axios.post(url, {}, {
