@@ -1,10 +1,7 @@
-// server.js
 import express from "express";
 import bodyParser from "body-parser";
 import crypto from "crypto";
 import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,9 +25,7 @@ app.post("/", async (req, res) => {
     const url = `https://fapi.binance.com/fapi/v1/order?${queryString}&signature=${signature}`;
 
     const response = await axios.post(url, {}, {
-      headers: {
-        "X-MBX-APIKEY": apiKey,
-      },
+      headers: { "X-MBX-APIKEY": apiKey }
     });
 
     res.status(200).json({ success: true, binanceResponse: response.data });
